@@ -1,1 +1,2 @@
-export { IconCrossMark } from './cross-mark';
+export { SquareChecked } from './square-checked';
+export { SquareUnchecked } from './square-unchecked';
