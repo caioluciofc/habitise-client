@@ -105,3 +105,28 @@ a {
     color-scheme: dark;
   }
 }
+
+table, th, td {
+  border-collapse: collapse;
+  padding: 7px;
+  text-align: center;
+  font-size: large;
+}
+
+@keyframes shine {
+  0% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+  100% {
+    border-color: transparent;
+  }
+}
+
+tr.highlight {
+  animation: shine 2s infinite;
+  border-bottom: 1pt solid white;
+  border-color: #fff;
+}

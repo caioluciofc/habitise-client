@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import { habitsService } from '../services/habits.service';
 import { UserHabit, TrackedHabit } from '../models/UserHabit';
 
+interface TrackedHabits {
+  [day : number] : number[];
+}
+
 interface HabitsState {
   userHabits?: UserHabit[];
-  trackedHabits?: TrackedHabit[];
+  trackedHabits?: TrackedHabits;
   isLoading: boolean;
 }
 
@@ -14,6 +18,8 @@ export default function useHabitsState() {
   //  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   const [habitsState, setHabitsState] = useState<HabitsState>({
     isLoading: false,
+    userHabits: [],
+    trackedHabits: {}
   });
 
   //  ╔═╗╦═╗╦╔ ╗╔═╗╔╦╗╔═╗
@@ -28,12 +34,12 @@ export default function useHabitsState() {
     setHabitsState((current) => ({ ...current, isLoading: false }));
   }
 
-  async function _fetchUserHabits(userId: number = 5, password: string) {
+  async function _fetchUserHabits(userId: number = 5) {
     try {
       _startLoading();
       const userHabits = await habitsService.fetchUserHabits(userId);
       if (userHabits) {
-        setHabitsState((current) => ({ ...current, userHabits }));
+        setHabitsState((current) => ({ ...current, userHabits : userHabits['positive'] }));
       } else {
         console.error(`User habits couldn't be fetched`);
       }
@@ -48,7 +54,15 @@ export default function useHabitsState() {
       _startLoading();
       const trackedHabits = await habitsService.fetchUserTrackedHabits(userId, month);
       if (trackedHabits) {
-        setHabitsState((current) => ({ ...current, trackedHabits }));
+        const result : TrackedHabits = {}; 
+        trackedHabits.forEach((trackedHabit : TrackedHabit) => {
+          const day = new Date(trackedHabit.done_at).getDate();
+          if (!result[day]) {
+            result[day] = [];
+          }
+          result[day].push(trackedHabit.habit);
+        })
+        setHabitsState((current) => ({ ...current, trackedHabits : result }));
       } else {
         console.error(`User tracked habits couldn't be fetched`);
       }
@@ -58,12 +72,47 @@ export default function useHabitsState() {
     _stopLoading();
   }
 
+  async function _addHabit(habitName: string, emoji : string) {
+    try {
+      _startLoading();
+      const newHabit = await habitsService.addHabit(habitName, emoji);
+    } catch (error) {
+      console.error(`${error}`);
+    }
+    _stopLoading();
+  }
+
+  async function _trackHabit(userId: number = 5, habitId: number, date: Date) {
+    try {
+      _startLoading();
+      await habitsService.trackHabit(userId, habitId, date);
+    } catch (error) {
+      console.error(`${error}`);
+    }
+    var trackedHabits = habitsState.trackedHabits
+
+    if (!trackedHabits) {
+      trackedHabits = {}
+    }
+
+    if(!trackedHabits.hasOwnProperty(date.getDay())) {
+      trackedHabits[date.getDay()] = []
+    }
+
+    trackedHabits[date.getDay()].push(habitId)
+
+    setHabitsState((current) => ({ ...current, trackedHabits }));
+    _stopLoading();
+  }
+
   //  ╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
   //  ╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   const _actions_ = {
     fetchUserHabits: _fetchUserHabits,
-    fetchUserTrackedHabits: _fetchUserTrackedHabits
+    fetchUserTrackedHabits: _fetchUserTrackedHabits,
+    addHabit: _addHabit,
+    trackHabit: _trackHabit
   };
 
   return [habitsState, _actions_] as [typeof habitsState, typeof _actions_];
