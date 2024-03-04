@@ -20,7 +20,7 @@ export function Row({day} : Props) {
     <tr key={day} className={isToday ? 'highlight' : ''}>
       <td>{day}</td>
       {habitsState.userHabits?.map((habit) => (
-            <Cell habitId={habit.id} isFuture={today < day} day={day}/>
+            <Cell key={habit.id} habitId={habit.id} isFuture={today < day} day={day}/>
       ))}
     </tr>
   );

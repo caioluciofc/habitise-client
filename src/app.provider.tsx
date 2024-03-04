@@ -28,11 +28,6 @@ export default function AppProvider({ children }: Props) {
   const [habitsState, habitsActions] = useHabitsState();
 
   useEffect(() => {
-    console.log(habitsState.userHabits);
-    console.log(habitsState.trackedHabits);
-  }, [habitsState]);
-
-  useEffect(() => {
     habitsActions.fetchUserHabits();
     habitsActions.fetchUserTrackedHabits();
   }, []);

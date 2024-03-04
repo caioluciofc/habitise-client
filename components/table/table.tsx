@@ -14,7 +14,7 @@ export function Table() {
           <TableHeader />
           <tbody>
             {monthDays.map((day) => (
-                <Row day={day}/>
+                <Row key={day} day={day}/>
             ))}
           </tbody>
         </table>
