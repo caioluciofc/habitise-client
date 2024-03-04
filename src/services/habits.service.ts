@@ -7,8 +7,8 @@ export const habitsService = {
   trackHabit
 };
 
-// const apiUrl = 'https://habitise-api.fly.dev';
-const apiUrl = 'http://localhost:8000';
+const apiUrl = 'https://habitise-api.fly.dev';
+// const apiUrl = 'http://localhost:8000';
 
 async function fetchUserHabits(userId: number = 5) {
   try {
