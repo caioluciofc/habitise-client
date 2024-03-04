@@ -9,9 +9,9 @@ export function TableHeader() {
     return (
         <thead style={styles.thead}>
         <tr>
-          <th>{String.fromCodePoint('0x1F4C5')}</th>
+          <th>{String.fromCodePoint(0x1F4C5)}</th>
           {habitsState?.userHabits?.map((habit) => (
-            <th key={habit.id}>{String.fromCodePoint(`0x${habit.emoji_unicode_hex}`)}</th>
+            <th key={habit.id}>{String.fromCodePoint(Number(`0x${habit.emoji_unicode_hex}`))}</th>
           ))}
         </tr>
       </thead>
