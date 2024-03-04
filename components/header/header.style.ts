@@ -1,4 +1,5 @@
 import { CustomStyle } from '@/src/models';
+import { Colors } from '@/design_system/';
 
 export const styles: CustomStyle = {
   header: {
@@ -10,8 +11,8 @@ export const styles: CustomStyle = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '1rem',
-    backgroundColor: '#333',
-    color: '#fff',
+    backgroundColor: Colors.darkgrey,
+    color: Colors.white,
   },
   logoContainer: {
     display: 'flex',
@@ -25,11 +26,11 @@ export const styles: CustomStyle = {
     fontSize: '1rem',
   },
   nav: {
-    display: 'flex',
+    justifyContent: 'space-between',
   },
   link: {
     marginLeft: '1rem',
-    color: '#fff',
+    color: Colors.white,
     textDecoration: 'none',
   },
 };

@@ -76,6 +76,7 @@ export default function useHabitsState() {
     try {
       _startLoading();
       const newHabit = await habitsService.addHabit(habitName, emoji);
+      _fetchUserHabits();
     } catch (error) {
       console.error(`${error}`);
     }

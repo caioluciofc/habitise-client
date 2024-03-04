@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useAppContext } from '@/src/app.provider';
 import EmojiPicker, { Theme, EmojiStyle, EmojiClickData, Emoji } from 'emoji-picker-react';
 import { styles } from './habitForm.style';
+import { useRouter } from 'next/router';
 
 export function HabitForm() {
   const [name, setName] = useState('');
   const [selectedEmoji, setSelectedEmoji] = useState<EmojiClickData | undefined>(undefined);
   const [showEmojis, setShowEmojis] = useState(false);
+  const router = useRouter();
 
   const { addHabit } = useAppContext();
 
@@ -16,6 +18,7 @@ export function HabitForm() {
     // Reset form fields after submission if needed
     setName('');
     setSelectedEmoji(undefined);
+    router.push('/');
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +49,7 @@ export function HabitForm() {
             />
           )}
         </label>
-        <button type="submit" style={styles.button}>
+        <button disabled={!name || !selectedEmoji} type="submit" style={styles.button}>
           Submit
         </button>
       </form>
