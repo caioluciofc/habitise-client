@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=5",
+		"lint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx --max-warnings=40",
+		"typecheck": "tsc --strict",
+		"test": "jest"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -26,6 +29,9 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.1.1",
+    "eslint-plugin-flowtype": "^8.0.3",
+		"eslint-plugin-prettier": "^5.1.2",
+    "prettier": "^3.1.1",
     "typescript": "^5"
   }
 }

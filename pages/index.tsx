@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
-import styles from '../design_system/styles/Home.module.css';
+import styles from '@/design_system/styles/Home.module.css';
 import { useAppContext } from '@/src/app.provider';
 import { Table } from '@/components/table';
 import { Header } from '@/components';

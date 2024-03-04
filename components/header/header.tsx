@@ -1,6 +1,6 @@
-import { styles } from "./header.style";
-import Link from 'next/link'
-import Image from 'next/image'
+import { styles } from './header.style';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export function Header() {
   return (
@@ -10,10 +10,9 @@ export function Header() {
         <span style={styles.name}>habitise</span>
       </div>
       <nav style={styles.nav}>
-        <Link href="/">Home</Link>
+        <Link href="/">Home </Link>
         <Link href="/addHabit">Add Habit</Link>
       </nav>
     </header>
   );
 }
-
