@@ -9,7 +9,7 @@ export function TableHeader() {
   return (
     <thead style={styles.thead}>
       <Tooltip id="dateIcon" />
-      {habitsState?.userHabits?.map((habit) => <Tooltip id={habit.id.toString()} />)}
+      {habitsState?.userHabits?.map((habit) => <Tooltip key={habit.id} id={habit.id.toString()} />)}
       <tr>
         <th data-tooltip-id="dateIcon" data-tooltip-content="Day">{String.fromCodePoint(0x1f4c5)}</th>
         {habitsState?.userHabits?.map((habit) => (
